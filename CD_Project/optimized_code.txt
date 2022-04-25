@@ -1,0 +1,31 @@
+a = 2
+b = 2
+e = 4
+d = 2
+flag = true
+L1: 
+t5 = a < b
+t6 = not t5
+if t6 goto L2
+t7 = 4 
+a = 4
+goto L1 
+L2: 
+t8 = a <= 3
+t9 = not t8
+if t9 goto L3
+t10 = 5 
+a = 5
+goto L4
+L3: 
+t11 = 31 
+t11 = 62 
+b = 62
+L4: 
+L4: 
+a = 20
+t13 = a > b
+t14 = not t13
+if t14 goto L5
+goto L4 
+L5: 

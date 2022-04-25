@@ -1,0 +1,1772 @@
+Terminals which are not used
+
+   FOR
+   DEC
+   INC
+
+
+State 46 conflicts: 3 shift/reduce
+
+
+Grammar
+
+    0 $accept: program $end
+
+    1 program: initial CLASS ID '{' BODY '}'
+    2        | error CLASS
+
+    3 initial: access_specifier
+    4        | /* empty */
+
+    5 BODY: access_specifier STATIC type_const MAIN '(' type_const '[' ']' ID ')' '{' stmt_list '}'
+
+    6 stmt: E ';'
+    7     | ASSIGNEXPR
+    8     | DECL
+    9     | PRINT '(' PRNT_STAT ')' ';'
+   10     | IF_CONDITION
+   11     | WHILE '(' COND ')' '{' stmt '}'
+   12     | DO '{' stmt '}' WHILE '(' COND ')' ';'
+   13     | ';'
+
+   14 stmt_list: stmt
+   15          | stmt_list stmt
+
+   16 PRNT_STAT: string
+   17          | string '+' PRNT_STAT
+   18          | ID
+   19          | ID '+' PRNT_STAT
+
+   20 IF_CONDITION: IF '(' COND ')' '{' stmt '}'
+   21             | IF '(' COND ')' '{' stmt '}' ELSE '{' stmt '}'
+
+   22 COND: EXPR
+   23     | TRUE
+   24     | FALSE
+   25     | EXPR OR EXPR
+   26     | EXPR AND EXPR
+
+   27 EXPR: RELEXP
+   28     | LOGEXP
+
+   29 RELEXP: E '<' E
+   30       | E '>' E
+   31       | E GE E
+   32       | E LE E
+   33       | E EQ E
+   34       | E NE E
+
+   35 LOGEXP: E OR E
+   36       | E AND E
+
+   37 DECL: INT VARLIST ';'
+   38     | CHAR VARLIST ';'
+   39     | FLOAT VARLIST ';'
+   40     | BOOLEAN VARLIST ';'
+   41     | INT ASSIGNEXPR
+   42     | CHAR ASSIGNEXPR
+   43     | FLOAT ASSIGNEXPR
+   44     | BOOLEAN ASSIGNEXPR
+
+   45 VARLIST: VARLIST ',' ID
+   46        | ID
+
+   47 ASSIGNEXPR: ID '=' E ',' ASSIGNEXPR
+   48           | ID '=' E ';'
+
+   49 E: E '+' T
+   50  | E '-' T
+   51  | T
+
+   52 T: T '*' F
+   53  | T '/' F
+   54  | T '%' F
+   55  | F
+
+   56 F: ID
+   57  | string
+   58  | INTEGER
+   59  | FLOAT_NUM
+   60  | TRUE
+   61  | FALSE
+   62  | '(' E ')'
+   63  | '-' E
+
+
+Terminals, with rules where they appear
+
+$end (0) 0
+'%' (37) 54
+'(' (40) 5 9 11 12 20 21 62
+')' (41) 5 9 11 12 20 21 62
+'*' (42) 52
+'+' (43) 17 19 49
+',' (44) 45 47
+'-' (45) 50 63
+'/' (47) 53
+';' (59) 6 9 12 13 37 38 39 40 48
+'<' (60) 29
+'=' (61) 47 48
+'>' (62) 30
+'[' (91) 5
+']' (93) 5
+'{' (123) 1 5 11 12 20 21
+'}' (125) 1 5 11 12 20 21
+error (256) 2
+INTEGER (258) 58
+FLOAT_NUM (259) 59
+STATIC (260) 5
+MAIN (261) 5
+CLASS (262) 1 2
+access_specifier (263) 3 5
+type_const (264) 5
+ID (265) 1 5 18 19 45 46 47 48 56
+string (266) 16 17 57
+TRUE (267) 23 60
+FALSE (268) 24 61
+DO (269) 12
+WHILE (270) 11 12
+IF (271) 20 21
+PRINT (272) 9
+FOR (273)
+INT (274) 37 41
+FLOAT (275) 39 43
+CHAR (276) 38 42
+BOOLEAN (277) 40 44
+IFX (278)
+ELSE (279) 21
+AND (280) 26 36
+OR (281) 25 35
+NE (282) 34
+EQ (283) 33
+LE (284) 32
+GE (285) 31
+DEC (286)
+INC (287)
+UMINUS (288)
+
+
+Nonterminals, with rules where they appear
+
+$accept (50)
+    on left: 0
+program (51)
+    on left: 1 2, on right: 0
+initial (52)
+    on left: 3 4, on right: 1
+BODY (53)
+    on left: 5, on right: 1
+stmt (54)
+    on left: 6 7 8 9 10 11 12 13, on right: 11 12 14 15 20 21
+stmt_list (55)
+    on left: 14 15, on right: 5 15
+PRNT_STAT (56)
+    on left: 16 17 18 19, on right: 9 17 19
+IF_CONDITION (57)
+    on left: 20 21, on right: 10
+COND (58)
+    on left: 22 23 24 25 26, on right: 11 12 20 21
+EXPR (59)
+    on left: 27 28, on right: 22 25 26
+RELEXP (60)
+    on left: 29 30 31 32 33 34, on right: 27
+LOGEXP (61)
+    on left: 35 36, on right: 28
+DECL (62)
+    on left: 37 38 39 40 41 42 43 44, on right: 8
+VARLIST (63)
+    on left: 45 46, on right: 37 38 39 40 45
+ASSIGNEXPR (64)
+    on left: 47 48, on right: 7 41 42 43 44 47
+E (65)
+    on left: 49 50 51, on right: 6 29 30 31 32 33 34 35 36 47 48 49
+    50 62 63
+T (66)
+    on left: 52 53 54 55, on right: 49 50 51 52 53 54
+F (67)
+    on left: 56 57 58 59 60 61 62 63, on right: 52 53 54 55
+
+
+state 0
+
+    0 $accept: . program $end
+
+    error             shift, and go to state 1
+    access_specifier  shift, and go to state 2
+
+    CLASS  reduce using rule 4 (initial)
+
+    program  go to state 3
+    initial  go to state 4
+
+
+state 1
+
+    2 program: error . CLASS
+
+    CLASS  shift, and go to state 5
+
+
+state 2
+
+    3 initial: access_specifier .
+
+    $default  reduce using rule 3 (initial)
+
+
+state 3
+
+    0 $accept: program . $end
+
+    $end  shift, and go to state 6
+
+
+state 4
+
+    1 program: initial . CLASS ID '{' BODY '}'
+
+    CLASS  shift, and go to state 7
+
+
+state 5
+
+    2 program: error CLASS .
+
+    $default  reduce using rule 2 (program)
+
+
+state 6
+
+    0 $accept: program $end .
+
+    $default  accept
+
+
+state 7
+
+    1 program: initial CLASS . ID '{' BODY '}'
+
+    ID  shift, and go to state 8
+
+
+state 8
+
+    1 program: initial CLASS ID . '{' BODY '}'
+
+    '{'  shift, and go to state 9
+
+
+state 9
+
+    1 program: initial CLASS ID '{' . BODY '}'
+
+    access_specifier  shift, and go to state 10
+
+    BODY  go to state 11
+
+
+state 10
+
+    5 BODY: access_specifier . STATIC type_const MAIN '(' type_const '[' ']' ID ')' '{' stmt_list '}'
+
+    STATIC  shift, and go to state 12
+
+
+state 11
+
+    1 program: initial CLASS ID '{' BODY . '}'
+
+    '}'  shift, and go to state 13
+
+
+state 12
+
+    5 BODY: access_specifier STATIC . type_const MAIN '(' type_const '[' ']' ID ')' '{' stmt_list '}'
+
+    type_const  shift, and go to state 14
+
+
+state 13
+
+    1 program: initial CLASS ID '{' BODY '}' .
+
+    $default  reduce using rule 1 (program)
+
+
+state 14
+
+    5 BODY: access_specifier STATIC type_const . MAIN '(' type_const '[' ']' ID ')' '{' stmt_list '}'
+
+    MAIN  shift, and go to state 15
+
+
+state 15
+
+    5 BODY: access_specifier STATIC type_const MAIN . '(' type_const '[' ']' ID ')' '{' stmt_list '}'
+
+    '('  shift, and go to state 16
+
+
+state 16
+
+    5 BODY: access_specifier STATIC type_const MAIN '(' . type_const '[' ']' ID ')' '{' stmt_list '}'
+
+    type_const  shift, and go to state 17
+
+
+state 17
+
+    5 BODY: access_specifier STATIC type_const MAIN '(' type_const . '[' ']' ID ')' '{' stmt_list '}'
+
+    '['  shift, and go to state 18
+
+
+state 18
+
+    5 BODY: access_specifier STATIC type_const MAIN '(' type_const '[' . ']' ID ')' '{' stmt_list '}'
+
+    ']'  shift, and go to state 19
+
+
+state 19
+
+    5 BODY: access_specifier STATIC type_const MAIN '(' type_const '[' ']' . ID ')' '{' stmt_list '}'
+
+    ID  shift, and go to state 20
+
+
+state 20
+
+    5 BODY: access_specifier STATIC type_const MAIN '(' type_const '[' ']' ID . ')' '{' stmt_list '}'
+
+    ')'  shift, and go to state 21
+
+
+state 21
+
+    5 BODY: access_specifier STATIC type_const MAIN '(' type_const '[' ']' ID ')' . '{' stmt_list '}'
+
+    '{'  shift, and go to state 22
+
+
+state 22
+
+    5 BODY: access_specifier STATIC type_const MAIN '(' type_const '[' ']' ID ')' '{' . stmt_list '}'
+
+    INTEGER    shift, and go to state 23
+    FLOAT_NUM  shift, and go to state 24
+    ID         shift, and go to state 25
+    string     shift, and go to state 26
+    TRUE       shift, and go to state 27
+    FALSE      shift, and go to state 28
+    DO         shift, and go to state 29
+    WHILE      shift, and go to state 30
+    IF         shift, and go to state 31
+    PRINT      shift, and go to state 32
+    INT        shift, and go to state 33
+    FLOAT      shift, and go to state 34
+    CHAR       shift, and go to state 35
+    BOOLEAN    shift, and go to state 36
+    '-'        shift, and go to state 37
+    '('        shift, and go to state 38
+    ';'        shift, and go to state 39
+
+    stmt          go to state 40
+    stmt_list     go to state 41
+    IF_CONDITION  go to state 42
+    DECL          go to state 43
+    ASSIGNEXPR    go to state 44
+    E             go to state 45
+    T             go to state 46
+    F             go to state 47
+
+
+state 23
+
+   58 F: INTEGER .
+
+    $default  reduce using rule 58 (F)
+
+
+state 24
+
+   59 F: FLOAT_NUM .
+
+    $default  reduce using rule 59 (F)
+
+
+state 25
+
+   47 ASSIGNEXPR: ID . '=' E ',' ASSIGNEXPR
+   48           | ID . '=' E ';'
+   56 F: ID .
+
+    '='  shift, and go to state 48
+
+    $default  reduce using rule 56 (F)
+
+
+state 26
+
+   57 F: string .
+
+    $default  reduce using rule 57 (F)
+
+
+state 27
+
+   60 F: TRUE .
+
+    $default  reduce using rule 60 (F)
+
+
+state 28
+
+   61 F: FALSE .
+
+    $default  reduce using rule 61 (F)
+
+
+state 29
+
+   12 stmt: DO . '{' stmt '}' WHILE '(' COND ')' ';'
+
+    '{'  shift, and go to state 49
+
+
+state 30
+
+   11 stmt: WHILE . '(' COND ')' '{' stmt '}'
+
+    '('  shift, and go to state 50
+
+
+state 31
+
+   20 IF_CONDITION: IF . '(' COND ')' '{' stmt '}'
+   21             | IF . '(' COND ')' '{' stmt '}' ELSE '{' stmt '}'
+
+    '('  shift, and go to state 51
+
+
+state 32
+
+    9 stmt: PRINT . '(' PRNT_STAT ')' ';'
+
+    '('  shift, and go to state 52
+
+
+state 33
+
+   37 DECL: INT . VARLIST ';'
+   41     | INT . ASSIGNEXPR
+
+    ID  shift, and go to state 53
+
+    VARLIST     go to state 54
+    ASSIGNEXPR  go to state 55
+
+
+state 34
+
+   39 DECL: FLOAT . VARLIST ';'
+   43     | FLOAT . ASSIGNEXPR
+
+    ID  shift, and go to state 53
+
+    VARLIST     go to state 56
+    ASSIGNEXPR  go to state 57
+
+
+state 35
+
+   38 DECL: CHAR . VARLIST ';'
+   42     | CHAR . ASSIGNEXPR
+
+    ID  shift, and go to state 53
+
+    VARLIST     go to state 58
+    ASSIGNEXPR  go to state 59
+
+
+state 36
+
+   40 DECL: BOOLEAN . VARLIST ';'
+   44     | BOOLEAN . ASSIGNEXPR
+
+    ID  shift, and go to state 53
+
+    VARLIST     go to state 60
+    ASSIGNEXPR  go to state 61
+
+
+state 37
+
+   63 F: '-' . E
+
+    INTEGER    shift, and go to state 23
+    FLOAT_NUM  shift, and go to state 24
+    ID         shift, and go to state 62
+    string     shift, and go to state 26
+    TRUE       shift, and go to state 27
+    FALSE      shift, and go to state 28
+    '-'        shift, and go to state 37
+    '('        shift, and go to state 38
+
+    E  go to state 63
+    T  go to state 46
+    F  go to state 47
+
+
+state 38
+
+   62 F: '(' . E ')'
+
+    INTEGER    shift, and go to state 23
+    FLOAT_NUM  shift, and go to state 24
+    ID         shift, and go to state 62
+    string     shift, and go to state 26
+    TRUE       shift, and go to state 27
+    FALSE      shift, and go to state 28
+    '-'        shift, and go to state 37
+    '('        shift, and go to state 38
+
+    E  go to state 64
+    T  go to state 46
+    F  go to state 47
+
+
+state 39
+
+   13 stmt: ';' .
+
+    $default  reduce using rule 13 (stmt)
+
+
+state 40
+
+   14 stmt_list: stmt .
+
+    $default  reduce using rule 14 (stmt_list)
+
+
+state 41
+
+    5 BODY: access_specifier STATIC type_const MAIN '(' type_const '[' ']' ID ')' '{' stmt_list . '}'
+   15 stmt_list: stmt_list . stmt
+
+    INTEGER    shift, and go to state 23
+    FLOAT_NUM  shift, and go to state 24
+    ID         shift, and go to state 25
+    string     shift, and go to state 26
+    TRUE       shift, and go to state 27
+    FALSE      shift, and go to state 28
+    DO         shift, and go to state 29
+    WHILE      shift, and go to state 30
+    IF         shift, and go to state 31
+    PRINT      shift, and go to state 32
+    INT        shift, and go to state 33
+    FLOAT      shift, and go to state 34
+    CHAR       shift, and go to state 35
+    BOOLEAN    shift, and go to state 36
+    '-'        shift, and go to state 37
+    '}'        shift, and go to state 65
+    '('        shift, and go to state 38
+    ';'        shift, and go to state 39
+
+    stmt          go to state 66
+    IF_CONDITION  go to state 42
+    DECL          go to state 43
+    ASSIGNEXPR    go to state 44
+    E             go to state 45
+    T             go to state 46
+    F             go to state 47
+
+
+state 42
+
+   10 stmt: IF_CONDITION .
+
+    $default  reduce using rule 10 (stmt)
+
+
+state 43
+
+    8 stmt: DECL .
+
+    $default  reduce using rule 8 (stmt)
+
+
+state 44
+
+    7 stmt: ASSIGNEXPR .
+
+    $default  reduce using rule 7 (stmt)
+
+
+state 45
+
+    6 stmt: E . ';'
+   49 E: E . '+' T
+   50  | E . '-' T
+
+    '+'  shift, and go to state 67
+    '-'  shift, and go to state 68
+    ';'  shift, and go to state 69
+
+
+state 46
+
+   51 E: T .
+   52 T: T . '*' F
+   53  | T . '/' F
+   54  | T . '%' F
+
+    '*'  shift, and go to state 70
+    '/'  shift, and go to state 71
+    '%'  shift, and go to state 72
+
+    '*'       [reduce using rule 51 (E)]
+    '/'       [reduce using rule 51 (E)]
+    '%'       [reduce using rule 51 (E)]
+    $default  reduce using rule 51 (E)
+
+
+state 47
+
+   55 T: F .
+
+    $default  reduce using rule 55 (T)
+
+
+state 48
+
+   47 ASSIGNEXPR: ID '=' . E ',' ASSIGNEXPR
+   48           | ID '=' . E ';'
+
+    INTEGER    shift, and go to state 23
+    FLOAT_NUM  shift, and go to state 24
+    ID         shift, and go to state 62
+    string     shift, and go to state 26
+    TRUE       shift, and go to state 27
+    FALSE      shift, and go to state 28
+    '-'        shift, and go to state 37
+    '('        shift, and go to state 38
+
+    E  go to state 73
+    T  go to state 46
+    F  go to state 47
+
+
+state 49
+
+   12 stmt: DO '{' . stmt '}' WHILE '(' COND ')' ';'
+
+    INTEGER    shift, and go to state 23
+    FLOAT_NUM  shift, and go to state 24
+    ID         shift, and go to state 25
+    string     shift, and go to state 26
+    TRUE       shift, and go to state 27
+    FALSE      shift, and go to state 28
+    DO         shift, and go to state 29
+    WHILE      shift, and go to state 30
+    IF         shift, and go to state 31
+    PRINT      shift, and go to state 32
+    INT        shift, and go to state 33
+    FLOAT      shift, and go to state 34
+    CHAR       shift, and go to state 35
+    BOOLEAN    shift, and go to state 36
+    '-'        shift, and go to state 37
+    '('        shift, and go to state 38
+    ';'        shift, and go to state 39
+
+    stmt          go to state 74
+    IF_CONDITION  go to state 42
+    DECL          go to state 43
+    ASSIGNEXPR    go to state 44
+    E             go to state 45
+    T             go to state 46
+    F             go to state 47
+
+
+state 50
+
+   11 stmt: WHILE '(' . COND ')' '{' stmt '}'
+
+    INTEGER    shift, and go to state 23
+    FLOAT_NUM  shift, and go to state 24
+    ID         shift, and go to state 62
+    string     shift, and go to state 26
+    TRUE       shift, and go to state 75
+    FALSE      shift, and go to state 76
+    '-'        shift, and go to state 37
+    '('        shift, and go to state 38
+
+    COND    go to state 77
+    EXPR    go to state 78
+    RELEXP  go to state 79
+    LOGEXP  go to state 80
+    E       go to state 81
+    T       go to state 46
+    F       go to state 47
+
+
+state 51
+
+   20 IF_CONDITION: IF '(' . COND ')' '{' stmt '}'
+   21             | IF '(' . COND ')' '{' stmt '}' ELSE '{' stmt '}'
+
+    INTEGER    shift, and go to state 23
+    FLOAT_NUM  shift, and go to state 24
+    ID         shift, and go to state 62
+    string     shift, and go to state 26
+    TRUE       shift, and go to state 75
+    FALSE      shift, and go to state 76
+    '-'        shift, and go to state 37
+    '('        shift, and go to state 38
+
+    COND    go to state 82
+    EXPR    go to state 78
+    RELEXP  go to state 79
+    LOGEXP  go to state 80
+    E       go to state 81
+    T       go to state 46
+    F       go to state 47
+
+
+state 52
+
+    9 stmt: PRINT '(' . PRNT_STAT ')' ';'
+
+    ID      shift, and go to state 83
+    string  shift, and go to state 84
+
+    PRNT_STAT  go to state 85
+
+
+state 53
+
+   46 VARLIST: ID .
+   47 ASSIGNEXPR: ID . '=' E ',' ASSIGNEXPR
+   48           | ID . '=' E ';'
+
+    '='  shift, and go to state 48
+
+    $default  reduce using rule 46 (VARLIST)
+
+
+state 54
+
+   37 DECL: INT VARLIST . ';'
+   45 VARLIST: VARLIST . ',' ID
+
+    ';'  shift, and go to state 86
+    ','  shift, and go to state 87
+
+
+state 55
+
+   41 DECL: INT ASSIGNEXPR .
+
+    $default  reduce using rule 41 (DECL)
+
+
+state 56
+
+   39 DECL: FLOAT VARLIST . ';'
+   45 VARLIST: VARLIST . ',' ID
+
+    ';'  shift, and go to state 88
+    ','  shift, and go to state 87
+
+
+state 57
+
+   43 DECL: FLOAT ASSIGNEXPR .
+
+    $default  reduce using rule 43 (DECL)
+
+
+state 58
+
+   38 DECL: CHAR VARLIST . ';'
+   45 VARLIST: VARLIST . ',' ID
+
+    ';'  shift, and go to state 89
+    ','  shift, and go to state 87
+
+
+state 59
+
+   42 DECL: CHAR ASSIGNEXPR .
+
+    $default  reduce using rule 42 (DECL)
+
+
+state 60
+
+   40 DECL: BOOLEAN VARLIST . ';'
+   45 VARLIST: VARLIST . ',' ID
+
+    ';'  shift, and go to state 90
+    ','  shift, and go to state 87
+
+
+state 61
+
+   44 DECL: BOOLEAN ASSIGNEXPR .
+
+    $default  reduce using rule 44 (DECL)
+
+
+state 62
+
+   56 F: ID .
+
+    $default  reduce using rule 56 (F)
+
+
+state 63
+
+   49 E: E . '+' T
+   50  | E . '-' T
+   63 F: '-' E .
+
+    $default  reduce using rule 63 (F)
+
+
+state 64
+
+   49 E: E . '+' T
+   50  | E . '-' T
+   62 F: '(' E . ')'
+
+    '+'  shift, and go to state 67
+    '-'  shift, and go to state 68
+    ')'  shift, and go to state 91
+
+
+state 65
+
+    5 BODY: access_specifier STATIC type_const MAIN '(' type_const '[' ']' ID ')' '{' stmt_list '}' .
+
+    $default  reduce using rule 5 (BODY)
+
+
+state 66
+
+   15 stmt_list: stmt_list stmt .
+
+    $default  reduce using rule 15 (stmt_list)
+
+
+state 67
+
+   49 E: E '+' . T
+
+    INTEGER    shift, and go to state 23
+    FLOAT_NUM  shift, and go to state 24
+    ID         shift, and go to state 62
+    string     shift, and go to state 26
+    TRUE       shift, and go to state 27
+    FALSE      shift, and go to state 28
+    '-'        shift, and go to state 37
+    '('        shift, and go to state 38
+
+    T  go to state 92
+    F  go to state 47
+
+
+state 68
+
+   50 E: E '-' . T
+
+    INTEGER    shift, and go to state 23
+    FLOAT_NUM  shift, and go to state 24
+    ID         shift, and go to state 62
+    string     shift, and go to state 26
+    TRUE       shift, and go to state 27
+    FALSE      shift, and go to state 28
+    '-'        shift, and go to state 37
+    '('        shift, and go to state 38
+
+    T  go to state 93
+    F  go to state 47
+
+
+state 69
+
+    6 stmt: E ';' .
+
+    $default  reduce using rule 6 (stmt)
+
+
+state 70
+
+   52 T: T '*' . F
+
+    INTEGER    shift, and go to state 23
+    FLOAT_NUM  shift, and go to state 24
+    ID         shift, and go to state 62
+    string     shift, and go to state 26
+    TRUE       shift, and go to state 27
+    FALSE      shift, and go to state 28
+    '-'        shift, and go to state 37
+    '('        shift, and go to state 38
+
+    F  go to state 94
+
+
+state 71
+
+   53 T: T '/' . F
+
+    INTEGER    shift, and go to state 23
+    FLOAT_NUM  shift, and go to state 24
+    ID         shift, and go to state 62
+    string     shift, and go to state 26
+    TRUE       shift, and go to state 27
+    FALSE      shift, and go to state 28
+    '-'        shift, and go to state 37
+    '('        shift, and go to state 38
+
+    F  go to state 95
+
+
+state 72
+
+   54 T: T '%' . F
+
+    INTEGER    shift, and go to state 23
+    FLOAT_NUM  shift, and go to state 24
+    ID         shift, and go to state 62
+    string     shift, and go to state 26
+    TRUE       shift, and go to state 27
+    FALSE      shift, and go to state 28
+    '-'        shift, and go to state 37
+    '('        shift, and go to state 38
+
+    F  go to state 96
+
+
+state 73
+
+   47 ASSIGNEXPR: ID '=' E . ',' ASSIGNEXPR
+   48           | ID '=' E . ';'
+   49 E: E . '+' T
+   50  | E . '-' T
+
+    '+'  shift, and go to state 67
+    '-'  shift, and go to state 68
+    ';'  shift, and go to state 97
+    ','  shift, and go to state 98
+
+
+state 74
+
+   12 stmt: DO '{' stmt . '}' WHILE '(' COND ')' ';'
+
+    '}'  shift, and go to state 99
+
+
+state 75
+
+   23 COND: TRUE .
+   60 F: TRUE .
+
+    ')'       reduce using rule 23 (COND)
+    $default  reduce using rule 60 (F)
+
+
+state 76
+
+   24 COND: FALSE .
+   61 F: FALSE .
+
+    ')'       reduce using rule 24 (COND)
+    $default  reduce using rule 61 (F)
+
+
+state 77
+
+   11 stmt: WHILE '(' COND . ')' '{' stmt '}'
+
+    ')'  shift, and go to state 100
+
+
+state 78
+
+   22 COND: EXPR .
+   25     | EXPR . OR EXPR
+   26     | EXPR . AND EXPR
+
+    AND  shift, and go to state 101
+    OR   shift, and go to state 102
+
+    $default  reduce using rule 22 (COND)
+
+
+state 79
+
+   27 EXPR: RELEXP .
+
+    $default  reduce using rule 27 (EXPR)
+
+
+state 80
+
+   28 EXPR: LOGEXP .
+
+    $default  reduce using rule 28 (EXPR)
+
+
+state 81
+
+   29 RELEXP: E . '<' E
+   30       | E . '>' E
+   31       | E . GE E
+   32       | E . LE E
+   33       | E . EQ E
+   34       | E . NE E
+   35 LOGEXP: E . OR E
+   36       | E . AND E
+   49 E: E . '+' T
+   50  | E . '-' T
+
+    '>'  shift, and go to state 103
+    '<'  shift, and go to state 104
+    AND  shift, and go to state 105
+    OR   shift, and go to state 106
+    NE   shift, and go to state 107
+    EQ   shift, and go to state 108
+    LE   shift, and go to state 109
+    GE   shift, and go to state 110
+    '+'  shift, and go to state 67
+    '-'  shift, and go to state 68
+
+
+state 82
+
+   20 IF_CONDITION: IF '(' COND . ')' '{' stmt '}'
+   21             | IF '(' COND . ')' '{' stmt '}' ELSE '{' stmt '}'
+
+    ')'  shift, and go to state 111
+
+
+state 83
+
+   18 PRNT_STAT: ID .
+   19          | ID . '+' PRNT_STAT
+
+    '+'  shift, and go to state 112
+
+    $default  reduce using rule 18 (PRNT_STAT)
+
+
+state 84
+
+   16 PRNT_STAT: string .
+   17          | string . '+' PRNT_STAT
+
+    '+'  shift, and go to state 113
+
+    $default  reduce using rule 16 (PRNT_STAT)
+
+
+state 85
+
+    9 stmt: PRINT '(' PRNT_STAT . ')' ';'
+
+    ')'  shift, and go to state 114
+
+
+state 86
+
+   37 DECL: INT VARLIST ';' .
+
+    $default  reduce using rule 37 (DECL)
+
+
+state 87
+
+   45 VARLIST: VARLIST ',' . ID
+
+    ID  shift, and go to state 115
+
+
+state 88
+
+   39 DECL: FLOAT VARLIST ';' .
+
+    $default  reduce using rule 39 (DECL)
+
+
+state 89
+
+   38 DECL: CHAR VARLIST ';' .
+
+    $default  reduce using rule 38 (DECL)
+
+
+state 90
+
+   40 DECL: BOOLEAN VARLIST ';' .
+
+    $default  reduce using rule 40 (DECL)
+
+
+state 91
+
+   62 F: '(' E ')' .
+
+    $default  reduce using rule 62 (F)
+
+
+state 92
+
+   49 E: E '+' T .
+   52 T: T . '*' F
+   53  | T . '/' F
+   54  | T . '%' F
+
+    '*'  shift, and go to state 70
+    '/'  shift, and go to state 71
+    '%'  shift, and go to state 72
+
+    $default  reduce using rule 49 (E)
+
+
+state 93
+
+   50 E: E '-' T .
+   52 T: T . '*' F
+   53  | T . '/' F
+   54  | T . '%' F
+
+    '*'  shift, and go to state 70
+    '/'  shift, and go to state 71
+    '%'  shift, and go to state 72
+
+    $default  reduce using rule 50 (E)
+
+
+state 94
+
+   52 T: T '*' F .
+
+    $default  reduce using rule 52 (T)
+
+
+state 95
+
+   53 T: T '/' F .
+
+    $default  reduce using rule 53 (T)
+
+
+state 96
+
+   54 T: T '%' F .
+
+    $default  reduce using rule 54 (T)
+
+
+state 97
+
+   48 ASSIGNEXPR: ID '=' E ';' .
+
+    $default  reduce using rule 48 (ASSIGNEXPR)
+
+
+state 98
+
+   47 ASSIGNEXPR: ID '=' E ',' . ASSIGNEXPR
+
+    ID  shift, and go to state 116
+
+    ASSIGNEXPR  go to state 117
+
+
+state 99
+
+   12 stmt: DO '{' stmt '}' . WHILE '(' COND ')' ';'
+
+    WHILE  shift, and go to state 118
+
+
+state 100
+
+   11 stmt: WHILE '(' COND ')' . '{' stmt '}'
+
+    '{'  shift, and go to state 119
+
+
+state 101
+
+   26 COND: EXPR AND . EXPR
+
+    INTEGER    shift, and go to state 23
+    FLOAT_NUM  shift, and go to state 24
+    ID         shift, and go to state 62
+    string     shift, and go to state 26
+    TRUE       shift, and go to state 27
+    FALSE      shift, and go to state 28
+    '-'        shift, and go to state 37
+    '('        shift, and go to state 38
+
+    EXPR    go to state 120
+    RELEXP  go to state 79
+    LOGEXP  go to state 80
+    E       go to state 81
+    T       go to state 46
+    F       go to state 47
+
+
+state 102
+
+   25 COND: EXPR OR . EXPR
+
+    INTEGER    shift, and go to state 23
+    FLOAT_NUM  shift, and go to state 24
+    ID         shift, and go to state 62
+    string     shift, and go to state 26
+    TRUE       shift, and go to state 27
+    FALSE      shift, and go to state 28
+    '-'        shift, and go to state 37
+    '('        shift, and go to state 38
+
+    EXPR    go to state 121
+    RELEXP  go to state 79
+    LOGEXP  go to state 80
+    E       go to state 81
+    T       go to state 46
+    F       go to state 47
+
+
+state 103
+
+   30 RELEXP: E '>' . E
+
+    INTEGER    shift, and go to state 23
+    FLOAT_NUM  shift, and go to state 24
+    ID         shift, and go to state 62
+    string     shift, and go to state 26
+    TRUE       shift, and go to state 27
+    FALSE      shift, and go to state 28
+    '-'        shift, and go to state 37
+    '('        shift, and go to state 38
+
+    E  go to state 122
+    T  go to state 46
+    F  go to state 47
+
+
+state 104
+
+   29 RELEXP: E '<' . E
+
+    INTEGER    shift, and go to state 23
+    FLOAT_NUM  shift, and go to state 24
+    ID         shift, and go to state 62
+    string     shift, and go to state 26
+    TRUE       shift, and go to state 27
+    FALSE      shift, and go to state 28
+    '-'        shift, and go to state 37
+    '('        shift, and go to state 38
+
+    E  go to state 123
+    T  go to state 46
+    F  go to state 47
+
+
+state 105
+
+   36 LOGEXP: E AND . E
+
+    INTEGER    shift, and go to state 23
+    FLOAT_NUM  shift, and go to state 24
+    ID         shift, and go to state 62
+    string     shift, and go to state 26
+    TRUE       shift, and go to state 27
+    FALSE      shift, and go to state 28
+    '-'        shift, and go to state 37
+    '('        shift, and go to state 38
+
+    E  go to state 124
+    T  go to state 46
+    F  go to state 47
+
+
+state 106
+
+   35 LOGEXP: E OR . E
+
+    INTEGER    shift, and go to state 23
+    FLOAT_NUM  shift, and go to state 24
+    ID         shift, and go to state 62
+    string     shift, and go to state 26
+    TRUE       shift, and go to state 27
+    FALSE      shift, and go to state 28
+    '-'        shift, and go to state 37
+    '('        shift, and go to state 38
+
+    E  go to state 125
+    T  go to state 46
+    F  go to state 47
+
+
+state 107
+
+   34 RELEXP: E NE . E
+
+    INTEGER    shift, and go to state 23
+    FLOAT_NUM  shift, and go to state 24
+    ID         shift, and go to state 62
+    string     shift, and go to state 26
+    TRUE       shift, and go to state 27
+    FALSE      shift, and go to state 28
+    '-'        shift, and go to state 37
+    '('        shift, and go to state 38
+
+    E  go to state 126
+    T  go to state 46
+    F  go to state 47
+
+
+state 108
+
+   33 RELEXP: E EQ . E
+
+    INTEGER    shift, and go to state 23
+    FLOAT_NUM  shift, and go to state 24
+    ID         shift, and go to state 62
+    string     shift, and go to state 26
+    TRUE       shift, and go to state 27
+    FALSE      shift, and go to state 28
+    '-'        shift, and go to state 37
+    '('        shift, and go to state 38
+
+    E  go to state 127
+    T  go to state 46
+    F  go to state 47
+
+
+state 109
+
+   32 RELEXP: E LE . E
+
+    INTEGER    shift, and go to state 23
+    FLOAT_NUM  shift, and go to state 24
+    ID         shift, and go to state 62
+    string     shift, and go to state 26
+    TRUE       shift, and go to state 27
+    FALSE      shift, and go to state 28
+    '-'        shift, and go to state 37
+    '('        shift, and go to state 38
+
+    E  go to state 128
+    T  go to state 46
+    F  go to state 47
+
+
+state 110
+
+   31 RELEXP: E GE . E
+
+    INTEGER    shift, and go to state 23
+    FLOAT_NUM  shift, and go to state 24
+    ID         shift, and go to state 62
+    string     shift, and go to state 26
+    TRUE       shift, and go to state 27
+    FALSE      shift, and go to state 28
+    '-'        shift, and go to state 37
+    '('        shift, and go to state 38
+
+    E  go to state 129
+    T  go to state 46
+    F  go to state 47
+
+
+state 111
+
+   20 IF_CONDITION: IF '(' COND ')' . '{' stmt '}'
+   21             | IF '(' COND ')' . '{' stmt '}' ELSE '{' stmt '}'
+
+    '{'  shift, and go to state 130
+
+
+state 112
+
+   19 PRNT_STAT: ID '+' . PRNT_STAT
+
+    ID      shift, and go to state 83
+    string  shift, and go to state 84
+
+    PRNT_STAT  go to state 131
+
+
+state 113
+
+   17 PRNT_STAT: string '+' . PRNT_STAT
+
+    ID      shift, and go to state 83
+    string  shift, and go to state 84
+
+    PRNT_STAT  go to state 132
+
+
+state 114
+
+    9 stmt: PRINT '(' PRNT_STAT ')' . ';'
+
+    ';'  shift, and go to state 133
+
+
+state 115
+
+   45 VARLIST: VARLIST ',' ID .
+
+    $default  reduce using rule 45 (VARLIST)
+
+
+state 116
+
+   47 ASSIGNEXPR: ID . '=' E ',' ASSIGNEXPR
+   48           | ID . '=' E ';'
+
+    '='  shift, and go to state 48
+
+
+state 117
+
+   47 ASSIGNEXPR: ID '=' E ',' ASSIGNEXPR .
+
+    $default  reduce using rule 47 (ASSIGNEXPR)
+
+
+state 118
+
+   12 stmt: DO '{' stmt '}' WHILE . '(' COND ')' ';'
+
+    '('  shift, and go to state 134
+
+
+state 119
+
+   11 stmt: WHILE '(' COND ')' '{' . stmt '}'
+
+    INTEGER    shift, and go to state 23
+    FLOAT_NUM  shift, and go to state 24
+    ID         shift, and go to state 25
+    string     shift, and go to state 26
+    TRUE       shift, and go to state 27
+    FALSE      shift, and go to state 28
+    DO         shift, and go to state 29
+    WHILE      shift, and go to state 30
+    IF         shift, and go to state 31
+    PRINT      shift, and go to state 32
+    INT        shift, and go to state 33
+    FLOAT      shift, and go to state 34
+    CHAR       shift, and go to state 35
+    BOOLEAN    shift, and go to state 36
+    '-'        shift, and go to state 37
+    '('        shift, and go to state 38
+    ';'        shift, and go to state 39
+
+    stmt          go to state 135
+    IF_CONDITION  go to state 42
+    DECL          go to state 43
+    ASSIGNEXPR    go to state 44
+    E             go to state 45
+    T             go to state 46
+    F             go to state 47
+
+
+state 120
+
+   26 COND: EXPR AND EXPR .
+
+    $default  reduce using rule 26 (COND)
+
+
+state 121
+
+   25 COND: EXPR OR EXPR .
+
+    $default  reduce using rule 25 (COND)
+
+
+state 122
+
+   30 RELEXP: E '>' E .
+   49 E: E . '+' T
+   50  | E . '-' T
+
+    '+'  shift, and go to state 67
+    '-'  shift, and go to state 68
+
+    $default  reduce using rule 30 (RELEXP)
+
+
+state 123
+
+   29 RELEXP: E '<' E .
+   49 E: E . '+' T
+   50  | E . '-' T
+
+    '+'  shift, and go to state 67
+    '-'  shift, and go to state 68
+
+    $default  reduce using rule 29 (RELEXP)
+
+
+state 124
+
+   36 LOGEXP: E AND E .
+   49 E: E . '+' T
+   50  | E . '-' T
+
+    '+'  shift, and go to state 67
+    '-'  shift, and go to state 68
+
+    $default  reduce using rule 36 (LOGEXP)
+
+
+state 125
+
+   35 LOGEXP: E OR E .
+   49 E: E . '+' T
+   50  | E . '-' T
+
+    '+'  shift, and go to state 67
+    '-'  shift, and go to state 68
+
+    $default  reduce using rule 35 (LOGEXP)
+
+
+state 126
+
+   34 RELEXP: E NE E .
+   49 E: E . '+' T
+   50  | E . '-' T
+
+    '+'  shift, and go to state 67
+    '-'  shift, and go to state 68
+
+    $default  reduce using rule 34 (RELEXP)
+
+
+state 127
+
+   33 RELEXP: E EQ E .
+   49 E: E . '+' T
+   50  | E . '-' T
+
+    '+'  shift, and go to state 67
+    '-'  shift, and go to state 68
+
+    $default  reduce using rule 33 (RELEXP)
+
+
+state 128
+
+   32 RELEXP: E LE E .
+   49 E: E . '+' T
+   50  | E . '-' T
+
+    '+'  shift, and go to state 67
+    '-'  shift, and go to state 68
+
+    $default  reduce using rule 32 (RELEXP)
+
+
+state 129
+
+   31 RELEXP: E GE E .
+   49 E: E . '+' T
+   50  | E . '-' T
+
+    '+'  shift, and go to state 67
+    '-'  shift, and go to state 68
+
+    $default  reduce using rule 31 (RELEXP)
+
+
+state 130
+
+   20 IF_CONDITION: IF '(' COND ')' '{' . stmt '}'
+   21             | IF '(' COND ')' '{' . stmt '}' ELSE '{' stmt '}'
+
+    INTEGER    shift, and go to state 23
+    FLOAT_NUM  shift, and go to state 24
+    ID         shift, and go to state 25
+    string     shift, and go to state 26
+    TRUE       shift, and go to state 27
+    FALSE      shift, and go to state 28
+    DO         shift, and go to state 29
+    WHILE      shift, and go to state 30
+    IF         shift, and go to state 31
+    PRINT      shift, and go to state 32
+    INT        shift, and go to state 33
+    FLOAT      shift, and go to state 34
+    CHAR       shift, and go to state 35
+    BOOLEAN    shift, and go to state 36
+    '-'        shift, and go to state 37
+    '('        shift, and go to state 38
+    ';'        shift, and go to state 39
+
+    stmt          go to state 136
+    IF_CONDITION  go to state 42
+    DECL          go to state 43
+    ASSIGNEXPR    go to state 44
+    E             go to state 45
+    T             go to state 46
+    F             go to state 47
+
+
+state 131
+
+   19 PRNT_STAT: ID '+' PRNT_STAT .
+
+    $default  reduce using rule 19 (PRNT_STAT)
+
+
+state 132
+
+   17 PRNT_STAT: string '+' PRNT_STAT .
+
+    $default  reduce using rule 17 (PRNT_STAT)
+
+
+state 133
+
+    9 stmt: PRINT '(' PRNT_STAT ')' ';' .
+
+    $default  reduce using rule 9 (stmt)
+
+
+state 134
+
+   12 stmt: DO '{' stmt '}' WHILE '(' . COND ')' ';'
+
+    INTEGER    shift, and go to state 23
+    FLOAT_NUM  shift, and go to state 24
+    ID         shift, and go to state 62
+    string     shift, and go to state 26
+    TRUE       shift, and go to state 75
+    FALSE      shift, and go to state 76
+    '-'        shift, and go to state 37
+    '('        shift, and go to state 38
+
+    COND    go to state 137
+    EXPR    go to state 78
+    RELEXP  go to state 79
+    LOGEXP  go to state 80
+    E       go to state 81
+    T       go to state 46
+    F       go to state 47
+
+
+state 135
+
+   11 stmt: WHILE '(' COND ')' '{' stmt . '}'
+
+    '}'  shift, and go to state 138
+
+
+state 136
+
+   20 IF_CONDITION: IF '(' COND ')' '{' stmt . '}'
+   21             | IF '(' COND ')' '{' stmt . '}' ELSE '{' stmt '}'
+
+    '}'  shift, and go to state 139
+
+
+state 137
+
+   12 stmt: DO '{' stmt '}' WHILE '(' COND . ')' ';'
+
+    ')'  shift, and go to state 140
+
+
+state 138
+
+   11 stmt: WHILE '(' COND ')' '{' stmt '}' .
+
+    $default  reduce using rule 11 (stmt)
+
+
+state 139
+
+   20 IF_CONDITION: IF '(' COND ')' '{' stmt '}' .
+   21             | IF '(' COND ')' '{' stmt '}' . ELSE '{' stmt '}'
+
+    ELSE  shift, and go to state 141
+
+    $default  reduce using rule 20 (IF_CONDITION)
+
+
+state 140
+
+   12 stmt: DO '{' stmt '}' WHILE '(' COND ')' . ';'
+
+    ';'  shift, and go to state 142
+
+
+state 141
+
+   21 IF_CONDITION: IF '(' COND ')' '{' stmt '}' ELSE . '{' stmt '}'
+
+    '{'  shift, and go to state 143
+
+
+state 142
+
+   12 stmt: DO '{' stmt '}' WHILE '(' COND ')' ';' .
+
+    $default  reduce using rule 12 (stmt)
+
+
+state 143
+
+   21 IF_CONDITION: IF '(' COND ')' '{' stmt '}' ELSE '{' . stmt '}'
+
+    INTEGER    shift, and go to state 23
+    FLOAT_NUM  shift, and go to state 24
+    ID         shift, and go to state 25
+    string     shift, and go to state 26
+    TRUE       shift, and go to state 27
+    FALSE      shift, and go to state 28
+    DO         shift, and go to state 29
+    WHILE      shift, and go to state 30
+    IF         shift, and go to state 31
+    PRINT      shift, and go to state 32
+    INT        shift, and go to state 33
+    FLOAT      shift, and go to state 34
+    CHAR       shift, and go to state 35
+    BOOLEAN    shift, and go to state 36
+    '-'        shift, and go to state 37
+    '('        shift, and go to state 38
+    ';'        shift, and go to state 39
+
+    stmt          go to state 144
+    IF_CONDITION  go to state 42
+    DECL          go to state 43
+    ASSIGNEXPR    go to state 44
+    E             go to state 45
+    T             go to state 46
+    F             go to state 47
+
+
+state 144
+
+   21 IF_CONDITION: IF '(' COND ')' '{' stmt '}' ELSE '{' stmt . '}'
+
+    '}'  shift, and go to state 145
+
+
+state 145
+
+   21 IF_CONDITION: IF '(' COND ')' '{' stmt '}' ELSE '{' stmt '}' .
+
+    $default  reduce using rule 21 (IF_CONDITION)
